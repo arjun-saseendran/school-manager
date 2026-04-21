@@ -53,15 +53,12 @@ func main() {
 			}
 			err = json.Unmarshal(body, &responseMap)
 			if err != nil {
+				http.Error(w, "failed to read the body.", http.StatusBadRequest)
 				return
 			}
 			fmt.Println("Processed response data: ", responseMap)
 			w.Write([]byte("it is teachers post method."))
 
-			if err != nil {
-				http.Error(w, "failed to read the body.", http.StatusBadRequest)
-				return
-			}
 			defer r.Body.Close()
 			fmt.Println("The data is: ", body)
 			fmt.Println("The string data is: ", string(body))
@@ -135,7 +132,9 @@ func main() {
 	}
 
 	server := &http.Server{
-		Addr:      port,
+		Addr:    port,
+		// Handler: middlewares.Cors(mux),
+
 		Handler:   middlewares.SecurityHeaders(mux),
 		TLSConfig: tlsConfig,
 	}
