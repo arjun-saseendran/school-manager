@@ -8,6 +8,8 @@ import (
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/arjun-saseendran/school-manager/internal/api/middlewares"
 )
 
 type User struct {
@@ -134,7 +136,7 @@ func main() {
 
 	server := &http.Server{
 		Addr:      port,
-		Handler:   mux,
+		Handler:   middlewares.SecurityHeaders(mux),
 		TLSConfig: tlsConfig,
 	}
 
