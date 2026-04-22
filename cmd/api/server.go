@@ -132,10 +132,10 @@ func main() {
 	}
 
 	server := &http.Server{
-		Addr:    port,
+		Addr: port,
 		// Handler: middlewares.Cors(mux),
 
-		Handler:   middlewares.SecurityHeaders(mux),
+		Handler:   middlewares.ResponseTimeMiddleware(middlewares.SecurityHeaders(middlewares.Cors(mux))),
 		TLSConfig: tlsConfig,
 	}
 
