@@ -135,7 +135,7 @@ func main() {
 		Addr: port,
 		// Handler: middlewares.Cors(mux),
 
-		Handler:   middlewares.ResponseTimeMiddleware(middlewares.SecurityHeaders(middlewares.Cors(mux))),
+		Handler:   middlewares.Compression(middlewares.ResponseTimeMiddleware(middlewares.SecurityHeaders(middlewares.Cors(mux)))),
 		TLSConfig: tlsConfig,
 	}
 
